@@ -9,7 +9,7 @@ interface ThemeProps {
 }
 export default function Router({ isDarkMode, toggleDarkMode }: ThemeProps) {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/:coinId">
           <Coin isDarkMode={isDarkMode} />
