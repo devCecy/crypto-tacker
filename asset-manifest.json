@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/static/js/main.0819df1e.js",
-    "index.html": "/index.html",
-    "main.0819df1e.js.map": "/static/js/main.0819df1e.js.map"
+    "main.js": "/cryto-tracker/static/js/main.f5bee603.js",
+    "index.html": "/cryto-tracker/index.html",
+    "main.f5bee603.js.map": "/cryto-tracker/static/js/main.f5bee603.js.map"
   },
   "entrypoints": [
-    "static/js/main.0819df1e.js"
+    "static/js/main.f5bee603.js"
   ]
 }
