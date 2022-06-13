@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import { Helmet } from 'react-helmet';
 
 import { BsFillSunFill, BsMoon } from 'react-icons/bs';
+import { isDarkAtom } from '../atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 interface ICoin {
   id: string;
@@ -16,11 +18,11 @@ interface ICoin {
   type: string;
 }
 
-interface CoinsProps {
-  isDarkMode: boolean;
-  toggleDarkMode: any;
-}
-export default function Coins({ isDarkMode, toggleDarkMode }: CoinsProps) {
+
+export default function Coins() {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = ()=> setDarkAtom(prev=>!prev);
+  const isDarkMode = useRecoilValue(isDarkAtom);
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
 
   return (
@@ -30,7 +32,7 @@ export default function Coins({ isDarkMode, toggleDarkMode }: CoinsProps) {
       </Helmet>
       <Header>
         <Title>All Coins</Title>
-        <ThemeButton onClick={toggleDarkMode}>
+        <ThemeButton onClick={toggleDarkAtom}>
           {isDarkMode ? <BsFillSunFill /> : <BsMoon />}
         </ThemeButton>
       </Header>
@@ -78,8 +80,8 @@ const CoinList = styled.ul``;
 const Coin = styled.li`
   display: flex;
   align-items: center;
-  background-color: ${(props) => props.theme.textColor};
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgAccentColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
 
@@ -114,8 +116,8 @@ const Image = styled.img`
 
 const ThemeButton = styled.button`
   padding: 10px 15px;
-  background-color: ${(props) => props.theme.textColor};
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgAccentColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   border: none;
   cursor: pointer;

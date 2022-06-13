@@ -83,10 +83,8 @@ interface PriceData {
   members?: string[];
 }
 
-interface CoinProps {
-  isDarkMode: boolean;
-}
-export default function Coin({ isDarkMode }: CoinProps) {
+
+export default function Coin() {
   const { coinId } = useParams<RouteParams>(); // === <{coinId:string}
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch('/:coinId/price');
@@ -102,6 +100,7 @@ export default function Coin({ isDarkMode }: CoinProps) {
     { refetchInterval: 10000 }
   );
   const loading = infoLoading || priceLoading;
+
 
   return (
     <Container>
@@ -170,7 +169,7 @@ export default function Coin({ isDarkMode }: CoinProps) {
               <Price />
             </Route>
             <Route path={`/${coinId}/chart`}>
-              <Chart coinId={coinId} isDarkMode={isDarkMode} />
+              <Chart coinId={coinId}  />
             </Route>
           </Switch>
         </>
@@ -205,10 +204,10 @@ const Loading = styled.span`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgAccentColor};
   padding: 10px 20px;
   border-radius: 10px;
-  color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
 `;
 const OverviewItem = styled.div`
   display: flex;
@@ -237,11 +236,11 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.bgAccentColor};
   padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.bgColor};
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
     display: block;
   }
@@ -249,8 +248,8 @@ const Tab = styled.span<{ isActive: boolean }>`
 
 const PrevButton = styled.button`
   padding: 10px 15px;
-  background-color: ${(props) => props.theme.textColor};
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgAccentColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   border: none;
   cursor: pointer;

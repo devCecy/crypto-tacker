@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme';
+import { isDarkAtom } from './atom';
+import { useRecoilValue } from 'recoil';
 
 /**
  * 글로벌 스타일 적용
@@ -162,15 +164,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const toggleDarkMode = () => {
-    setIsDarkMode((theme) => !theme);
-  };
+  const isDarkMode = useRecoilValue(isDarkAtom);
+
   return (
     <>
       <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <Router isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <Router  />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>

@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
 
 import ApexChart from 'react-apexcharts';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from '../atom';
 
 interface IPrice {
   priceData: {
@@ -28,6 +30,7 @@ export default function Price() {
   const {
     state: { priceData },
   } = useLocation<IPrice>();
+  const isDarkMod = useRecoilValue(isDarkAtom);
   const {
     percent_change_15m,
     percent_change_30m,
@@ -60,7 +63,7 @@ export default function Price() {
         ]}
         options={{
           theme: {
-            mode: 'dark',
+            mode: isDarkMod ? 'dark' : 'light',
           },
           chart: {
             type: 'line',
